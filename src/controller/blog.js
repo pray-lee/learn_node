@@ -42,7 +42,7 @@ const updateBlog = (id, blogData={}) => {
 }
 
 // delete blog
-const delBlog = (id) => {
+const delBlog = id => {
   return true
 }
 

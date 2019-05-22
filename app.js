@@ -41,7 +41,7 @@ const serverHandle = (req, res) => {
     .then(postData => {
       req.body = postData
 
-      // if post data or not, we should put these logic into the resolve
+      // if post data or not, we should put these logic into the callback
 
       // blog router
       const blogData = handleBlogRouter(req, res)
