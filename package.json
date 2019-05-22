@@ -1,8 +1,18 @@
 {
   "name": "learn_node",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "app.js",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development nodemon ./bin/www.js",
+    "prod": "cross-env NODE_ENV=production nodemon ./bin/www.js"
+  },
   "repository": "https://github.com/pray-lee/learn_node.git",
   "author": "pray-lee <praycis@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "cross-env": "^5.2.0",
+    "eslint": "^5.16.0",
+    "nodemon": "^1.19.0"
+  }
 }
