@@ -1,0 +1,8 @@
+{
+  "name": "learn_node",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/pray-lee/learn_node.git",
+  "author": "pray-lee <praycis@gmail.com>",
+  "license": "MIT"
+}
