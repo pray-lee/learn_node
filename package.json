@@ -9,7 +9,9 @@
   "repository": "https://github.com/pray-lee/learn_node.git",
   "author": "pray-lee <praycis@gmail.com>",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "mysql": "^2.17.1"
+  },
   "devDependencies": {
     "cross-env": "^5.2.0",
     "eslint": "^5.16.0",
