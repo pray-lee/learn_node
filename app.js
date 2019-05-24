@@ -2,6 +2,16 @@ const querystring = require('querystring')
 const handleBlogRouter = require('./src/router/blog')
 const handleUserRouter = require('./src/router/user')
 
+// cookie expires
+const getCookieExpires = () => {
+  const d = new Date()
+  d.setTime(d.getTime() + (24 * 60 * 60 * 1000))
+  return d.toGMTString()
+}
+
+// session data
+const SESSION_DATA = {}
+
 // get post data func
 const getPostData = (req) => {
   return new Promise((resolve, reject) => {
@@ -36,6 +46,30 @@ const serverHandle = (req, res) => {
   // get query
   req.query = querystring.parse(req.url.split('?')[1])
 
+  // set req.cookie
+  const cookieStr = req.headers.cookie || ''
+  req.cookie = {}
+  cookieStr.split(';').forEach(item => {
+    const cookieArr = item.split('=')
+    const key = cookieArr[0].trim()
+    const value = cookieArr[1].trim()
+    req.cookie[key] = value
+  })
+
+  // set req.session
+  let needSetCookie = false
+  const userId = req.cookie.userid
+  if (userId) {
+    if (!SESSION_DATA[userId]) {
+      SESSION_DATA[userId] = {}
+    }
+  } else {
+    needSetCookie = true
+    userId = `${Date.now()}_${Math.random()}`
+    SESSION_DATA[userId] = {}
+  }
+  req.session = SESSION_DATA[userId]
+
   // get post data
   getPostData(req)
     .then(postData => {
@@ -47,6 +81,9 @@ const serverHandle = (req, res) => {
       const blogResult = handleBlogRouter(req, res)
       if (blogResult) {
         blogResult.then(blogData => {
+          if (needSetCookie) {
+            res.setHeader('Set-Cookie', `userid=${userId};path=/;httpOnly;expires=${getCookieExpires()}`)
+          }
           res.end(JSON.stringify(blogData))
         })
         return
@@ -56,6 +93,9 @@ const serverHandle = (req, res) => {
       const userResult = handleUserRouter(req, res)
       if (userResult) {
         userResult.then(userData => {
+          if (needSetCookie) {
+            res.setHeader('Set-Cookie', `userid=${userId};path=/;httpOnly;expires=${getCookieExpires()}`)
+          }
           res.end(JSON.stringify(userData))
         })
         return
