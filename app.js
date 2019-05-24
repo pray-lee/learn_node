@@ -51,14 +51,14 @@ const serverHandle = (req, res) => {
   req.cookie = {}
   cookieStr.split(';').forEach(item => {
     const cookieArr = item.split('=')
-    const key = cookieArr[0].trim()
-    const value = cookieArr[1].trim()
+    const key = cookieArr[0]
+    const value = cookieArr[1]
     req.cookie[key] = value
   })
 
   // set req.session
   let needSetCookie = false
-  const userId = req.cookie.userid
+  let userId = req.cookie.userid
   if (userId) {
     if (!SESSION_DATA[userId]) {
       SESSION_DATA[userId] = {}
