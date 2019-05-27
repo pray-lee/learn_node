@@ -82,6 +82,7 @@ const serverHandle = (req, res) => {
       if (blogResult) {
         blogResult.then(blogData => {
           if (needSetCookie) {
+            // if login success, then set cookie to browser.
             res.setHeader('Set-Cookie', `userid=${userId};path=/;httpOnly;expires=${getCookieExpires()}`)
           }
           res.end(JSON.stringify(blogData))
