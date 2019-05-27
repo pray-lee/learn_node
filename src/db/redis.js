@@ -29,7 +29,7 @@ function get(key) {
         return 
       }
       try {
-          resolve(JSON.parse(value))
+        resolve(JSON.parse(value))
       } catch (ex) {
         resolve(val)
       }
