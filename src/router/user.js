@@ -4,8 +4,8 @@ const { SuccessModel, ErrorModel } = require('../model/resModel')
 
 const handleUserRouter = (req, res) => {
   const method = req.method
-  if (req.path === '/api/user/login' && method === 'POST') {
-    const { username, password } = req.body
+  if (req.path === '/api/user/login' && method === 'GET') {
+    const { username, password } = req.query
     const result = login(username, password)
     return result.then(userData => {
       if (userData.username) {
