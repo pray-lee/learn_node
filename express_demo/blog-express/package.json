@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "dev": "cross-env NODE_ENV=development nodemon ./bin/www",
+    "build": "cross-env NODE_ENV=production nodemon ./bin/www"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -13,6 +15,8 @@
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
     "morgan": "~1.9.1",
-    "nodemon": "^1.19.1"
+    "mysql": "^2.17.1",
+    "nodemon": "^1.19.1",
+    "xss": "^1.0.6"
   }
 }
