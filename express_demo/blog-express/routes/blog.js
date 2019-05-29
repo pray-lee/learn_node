@@ -2,8 +2,9 @@ const express = require('express')
 const router = express.Router()
 const { getList, getDetail, newBlog, updateBlog, delBlog } = require('../controller/blog.js')
 const { SuccessModel, ErrorModel } = require('../model/resModel')
+const loginCheck = require('../middleware/loginCheck')
 
-router.get('/list', (req, res, next) => {
+router.get('/list', loginCheck, (req, res, next) => {
   const keyword = req.query.keyword
   const author = req.query.author
   const result = getList(keyword, author)

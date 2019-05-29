@@ -3,6 +3,9 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const session = require('express-session')
+const RedisStore = require('connect-redis')(session)
+const redisClient = require('./db/redis')
 
 const indexRouter = require('./routes/index')
 const blogRouter = require('./routes/blog')
@@ -10,11 +13,21 @@ const userRouter = require('./routes/user')
 
 var app = express();
 
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(logger('combined')); // log
+app.use(express.json()); // application-json
+app.use(express.urlencoded({ extended: false })); //x-www-form-urlencoded
+app.use(cookieParser()); // set cookie
+app.use(session({        // set session
+  secret: 'Wj67_uuu',
+  cookie: {   // 设置cookie配置
+    path: '/',
+    httpOnly: true,
+    maxAge: 24*60*60*1000
+  },
+  store: new RedisStore({ // redis 存储
+    client: redisClient
+  })
+}))
 
 app.use('/', indexRouter)
 app.use('/api/blog', blogRouter)
