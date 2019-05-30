@@ -22,7 +22,7 @@ app.use(bodyparser({
 app.use(logger())
 app.keys=["Wj_67*"]
 app.use(session({
-  key: 'koa:sess', // 写在客户端里面的cookie名
+  key: 'koa:sess', // 写在客户端里面的标志
   maxAge: 24*60*60*1000,
   httpOnly:true,
   store: redisStore({

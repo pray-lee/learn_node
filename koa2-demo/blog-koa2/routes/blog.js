@@ -16,7 +16,7 @@ router.get('/detail', async (ctx, next) => {
   console.log(ctx.request.header)
   console.log('==============')
   console.log(ctx.response.headers)
-  const id = ctx.request.id
+  // const id = ctx.request.id
   ctx.body = {
     errno: 0,
     data: {
