@@ -26,7 +26,7 @@ const getPostData = (req) => {
     }
     let postData = ''
     req.on('data', chunk => {
-      postData += chunk 
+      postData += chunk
     })
     req.on('end', () => {
       if (!postData) {
@@ -105,7 +105,7 @@ const serverHandle = (req, res) => {
       // 404
       res.writeHead(404, {"Content-Type": "text/plain"})
       res.end('404 Not Found!')
-    }) 
+    })
 }
 
 module.exports = serverHandle
